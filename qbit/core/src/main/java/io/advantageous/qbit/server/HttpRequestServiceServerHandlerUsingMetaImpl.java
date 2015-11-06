@@ -298,6 +298,8 @@ public class HttpRequestServiceServerHandlerUsingMetaImpl implements HttpRequest
         hackedHeaders.putAll(headers);
         hackedHeaders.put("Access-Control-Allow-Origin","*");
         hackedHeaders.put("Access-Control-Allow-Methods","*");
+        hackedHeaders.put("Access-Control-Allow-Headers", "Content-Length,Content-type,Host,User-Agent,Accept,Accept-Language,Accept-Encoding,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,x-insight,Connection,Pragma,Cache-Control");
+        hackedHeaders.put("Access-Control-Allow-Credentials","true");
 
         if (response.isText()) {
             //noinspection unchecked
