@@ -293,12 +293,18 @@ public class HttpRequestServiceServerHandlerUsingMetaImpl implements HttpRequest
     private void writeResponse(HttpResponseReceiver response, int code, String mimeType, String responseString,
                                MultiMap<String, String> headers) {
 
+        // Hacked headers to allow CORS
+        MultiMap<String, String> hackedHeaders = new io.advantageous.qbit.util.MultiMapImpl<String, String>();
+        hackedHeaders.putAll(headers);
+        hackedHeaders.put("Access-Control-Allow-Origin","*");
+        hackedHeaders.put("Access-Control-Allow-Methods","*");
+
         if (response.isText()) {
             //noinspection unchecked
-            response.response(code, mimeType, responseString, headers);
+            response.response(code, mimeType, responseString, hackedHeaders);
         } else {
             //noinspection unchecked
-            response.response(code, mimeType, responseString.getBytes(StandardCharsets.UTF_8), headers);
+            response.response(code, mimeType, responseString.getBytes(StandardCharsets.UTF_8), hackedHeaders);
         }
     }
 
